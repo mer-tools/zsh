@@ -1,0 +1,33 @@
+Name       : zsh
+Version    : 5.0.2
+Release    : 1
+Group      : Applications/System
+Summary    : The Z shell
+URL        : https://github.com/thp/mer-tools-zsh
+Description: |
+    Zsh is a shell designed for interactive use, although
+    it is also a powerful scripting language. Many of the
+    useful features of bash, ksh, and tcsh were incorporated
+    into zsh; many original features were added.
+Sources    :
+    - zsh-%{version}.tar.bz2
+
+License: MIT
+PkgConfigBR:
+    - ncursesw
+    - libpcre
+PkgBR:
+    - libcap-devel
+    - texinfo
+    - groff
+    - autoconf
+ConfigOptions:
+    - --with-tcsetpgrp
+Patches:
+    - 0001-Disable-building-and-installing-documentation.patch
+Files:
+    - "%{_datadir}/zsh/%{version}/scripts/*"
+    - "%{_datadir}/zsh/%{version}/functions/*"
+    - "%{_libdir}/zsh/5.0.2/zsh/*.so"
+    - "%{_libdir}/zsh/5.0.2/zsh/net/*.so"
+    - "%{_bindir}/zsh*"
