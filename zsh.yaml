@@ -1,6 +1,6 @@
 Name       : zsh
 Version    : 5.0.2
-Release    : 1
+Release    : 2
 Group      : Applications/System
 Summary    : The Z shell
 URL        : https://github.com/thp/mer-tools-zsh
@@ -22,7 +22,9 @@ PkgBR:
     - groff
     - autoconf
 ConfigOptions:
+    - --enable-etcdir=%{_sysconfdir}
     - --with-tcsetpgrp
+    - --bindir=/bin
 Patches:
     - 0001-Disable-building-and-installing-documentation.patch
 Files:

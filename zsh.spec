@@ -10,7 +10,7 @@ Name:       zsh
 
 Summary:    The Z shell
 Version:    5.0.2
-Release:    1
+Release:    2
 Group:      Applications/System
 License:    MIT
 URL:        https://github.com/thp/mer-tools-zsh
@@ -42,11 +42,14 @@ into zsh; many original features were added.
 
 %build
 # >> build pre
+%define _bindir /bin
 autoreconf
 # << build pre
 
 %configure --disable-static \
-    --with-tcsetpgrp
+    --enable-etcdir=%{_sysconfdir} \
+    --with-tcsetpgrp \
+    --bindir=/bin
 
 make %{?jobs:-j%jobs}
 
@@ -62,6 +65,29 @@ rm -rf %{buildroot}
 # >> install post
 # << install post
 
+
+%post
+# >> post
+# Taken from Fedora's zsh-5.0.2-1 package
+if [ ! -f %{_sysconfdir}/shells ] ; then
+echo "%{_bindir}/zsh" > %{_sysconfdir}/shells
+else
+grep -q "^%{_bindir}/zsh$" %{_sysconfdir}/shells || echo "%{_bindir}/zsh" >> %{_sysconfdir}/shells
+fi
+# << post
+
+%postun
+# >> postun
+# Taken from Fedora's zsh-5.0.2-1 package
+if [ "$1" = 0 ] ; then
+if [ -f %{_sysconfdir}/shells ] ; then
+TmpFile=`%{_bindir}/mktemp /tmp/.zshrpmXXXXXX`
+grep -v '^%{_bindir}/zsh$' %{_sysconfdir}/shells > $TmpFile
+cp -f $TmpFile %{_sysconfdir}/shells
+rm -f $TmpFile
+fi
+fi
+# << postun
 
 %files
 %defattr(-,root,root,-)
