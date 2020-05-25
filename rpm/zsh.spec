@@ -10,7 +10,6 @@ BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  libcap-devel
 BuildRequires:  texinfo
-BuildRequires:  groff
 BuildRequires:  autoconf
 
 %description
