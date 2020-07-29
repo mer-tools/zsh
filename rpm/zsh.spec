@@ -11,6 +11,7 @@ BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  libcap-devel
 BuildRequires:  texinfo
 BuildRequires:  autoconf
+Provides: /bin/zsh
 
 %description
 Zsh is a shell designed for interactive use, although
